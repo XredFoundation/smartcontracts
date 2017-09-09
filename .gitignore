@@ -1,0 +1,5 @@
+build/
+/node_modules
+/datachain
+/data_parity
+/test/privatenet/keys/DevelopmentChain

@@ -1,0 +1,50 @@
+{
+  "name": "xred-token",
+  "version": "0.0.1",
+  "description": "XRED token and crowdsale smart contracts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XredFoundation/smartcontracts.git"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/XredFoundation/smartcontracts/issues"
+  },
+  "scripts": {
+    "starttestrpc": "testrpc --secure -u 0 -u 1 -u 2 -u 3 -u 4 --gasLimit 100000000000",
+    "initprivatenetwin": "rm \"./datachain/geth\" -r -f&&geth --identity \"TestNode\" --datadir \"./datachain\" init \"./test/privatenet/TestGenesis.json\"",
+    "startprivatenetwin": "geth --identity \"TestNode\" --verbosity 1 --rpc --rpcport \"8545\" --mine --minerthreads 8 --nodiscover --maxpeers 0 --datadir \"./datachain\" --unlock \"0,1,2,3,4\" --password \"./test/privatenet/pass_wallet\" --nodiscover --targetgaslimit 6000000 --networkid \"15\" console",
+    "startprivatenetdwin": "geth --identity \"TestNode\" --verbosity 5 --rpc --rpcport \"8545\" --mine --minerthreads 8 --nodiscover --maxpeers 0 --datadir \"./datachain\" --unlock \"0,1,2,3,4\" --password \"./test/privatenet/pass_wallet\" --nodiscover --targetgaslimit 6000000 --networkid \"15\"",
+    "spdev": "parity --chain \"./test/privatenet/Parity.json\" --gasprice 0 --reseal-min-period 0 --jsonrpc-apis \"web3,eth,net,parity,traces,rpc,personal\" --unlock \"0x89d0a9ad9658b487f3a7948bea5443dbe858fb51,0x060dee6c0141830e2874ca216a362a3a90dcec3e,0xbe6b7c55576ed40ac93213a49979ccefacf07bd6,0x24d7991cb37cdf6178fe6970347a2789a2e22b47,0x0bfe3facfdb1cf548fd6d43c1c9e21488a508608\" --password \"./test/privatenet/pass_parity\" --force-ui --tracing on --fat-db on --network-id 17 --pruning archive"
+  },
+  "homepage": "https://github.com/XredFoundation/smartcontracts",
+  "devDependencies": {
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-register": "^6.23.0",
+    "chai": "^4.0.2",
+    "chai-as-promised": "^7.0.0",
+    "chai-bignumber": "^2.0.0",
+    "coveralls": "^2.13.1",
+    "ethereumjs-testrpc": "^4.1.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "solidity-coverage": "^0.2.2",
+    "fs-ext": "0.6.0",
+    "truffle": "^3.4.9",
+    "truffle-hdwallet-provider": "0.0.3"
+  },
+  "dependencies": {
+    "async": "^2.4.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-polyfill": "^6.26.0",
+    "bip39": "^2.4.0",
+    "ethereumjs-wallet": "^0.6.0",
+    "ethpm": "0.0.14",
+    "moment": "^2.18.1",
+    "web3": "^1.0.0-beta.18",
+    "web3-provider-engine": "^13.2.9",
+    "zeppelin-solidity": "^1.2.0"
+  }
+}
