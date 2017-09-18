@@ -24,17 +24,19 @@ contract SaleWallet {
     tokenSale = AbstractSale(_tokenSale);
   }
 
-  // @dev Receive all sent funds without any further logic
-  function () public payable {}
-
   // @dev Withdraw function sends all the funds to the wallet if conditions are correct
   function withdraw() public {
-    assert(msg.sender == multisig);                       // Only the multisig can request it
-    if (block.number > finalBlock) return doWithdraw();      // Allow after the final block
-    if (tokenSale.saleFinalized()) return doWithdraw();      // Allow when sale is finalized
+    assert(msg.sender == multisig);       // Only the multisig can request it
+    if (block.number > finalBlock &&      // Allow after the final block
+        tokenSale.saleFinalized()) {      // Allow when sale is finalized
+      return doWithdraw();
+    }
   }
 
   function doWithdraw() internal {
     assert(multisig.send(this.balance));
   }
+
+  // @dev Receive all sent funds without any further logic
+  function () public payable {}
 }
