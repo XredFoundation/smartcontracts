@@ -1,7 +1,7 @@
 pragma solidity ^0.4.15;
 
 import "zeppelin/contracts/math/SafeMath.sol";
-import "./interface/Controller.sol";
+import "./interface/TokenController.sol";
 import "./XREDCoin.sol";
 import "./XREDCoinPlaceholder.sol";
 import "./SaleWallet.sol";
@@ -14,7 +14,7 @@ import "./SaleWallet.sol";
  * Based on SampleCampaign-TokenController.sol from https://github.com/Giveth/minime
  **/
 
-contract XREDTokenSale is Controller {
+contract XREDTokenSale is TokenController {
     uint public initialBlock;             // Block number in which the sale starts. Inclusive. sale will be opened at initial block.
     uint public finalBlock;               // Block number in which the sale end. Exclusive, sale will be closed at ends block.
     uint public initialPrice;             // Number of wei-XREDCoin tokens for 1 wei, at the start of the sale (18 decimals)
@@ -102,6 +102,68 @@ Price increases by the same delta in every stage change
       finalPrice = _finalPrice;
       priceStages = _priceStages;
       capCommitment = _capCommitment;
+  }
+
+  modifier only(address x) {
+    require(msg.sender == x);
+    _;
+  }
+
+  modifier verify_cap(uint256 _cap, uint256 _cap_secure) {
+    require(isValidCap(_cap, _cap_secure));
+    _;
+  }
+
+  modifier only_before_sale {
+    require(getBlockNumber() < initialBlock);
+    _;
+  }
+
+  modifier only_during_sale_period {
+    require(getBlockNumber() >= initialBlock);
+    require(getBlockNumber() < finalBlock);
+    _;
+  }
+
+  modifier only_after_sale {
+    require(getBlockNumber() >= finalBlock);
+    _;
+  }
+
+  modifier only_sale_stopped {
+    require(saleStopped);
+    _;
+  }
+
+  modifier only_sale_not_stopped {
+    require(!saleStopped);
+    _;
+  }
+
+  modifier only_before_sale_activation {
+    require(!isActivated());
+    _;
+  }
+
+  modifier only_sale_activated {
+    require(isActivated());
+    _;
+  }
+
+  modifier only_finalized_sale {
+    require(getBlockNumber() >= finalBlock);
+    require(saleFinalized);
+    _;
+  }
+
+  modifier non_zero_address(address x) {
+    require(x != 0);
+    _;
+  }
+
+  modifier minimum_value(uint256 x) {
+    require(msg.value >= x);
+    _;
   }
 
   // @notice Deploy XREDCoin is called only once to setup all the needed contracts.
@@ -378,67 +440,5 @@ Price increases by the same delta in every stage change
 
   function isValidCap(uint256 _cap, uint256 _cap_secure) constant public returns (bool) {
     return computeCap(_cap, _cap_secure) == capCommitment;
-  }
-
-  modifier only(address x) {
-    require(msg.sender == x);
-    _;
-  }
-
-  modifier verify_cap(uint256 _cap, uint256 _cap_secure) {
-    require(isValidCap(_cap, _cap_secure));
-    _;
-  }
-
-  modifier only_before_sale {
-    require(getBlockNumber() < initialBlock);
-    _;
-  }
-
-  modifier only_during_sale_period {
-    require(getBlockNumber() >= initialBlock);
-    require(getBlockNumber() < finalBlock);
-    _;
-  }
-
-  modifier only_after_sale {
-    require(getBlockNumber() >= finalBlock);
-    _;
-  }
-
-  modifier only_sale_stopped {
-    require(saleStopped);
-    _;
-  }
-
-  modifier only_sale_not_stopped {
-    require(!saleStopped);
-    _;
-  }
-
-  modifier only_before_sale_activation {
-    require(!isActivated());
-    _;
-  }
-
-  modifier only_sale_activated {
-    require(isActivated());
-    _;
-  }
-
-  modifier only_finalized_sale {
-    require(getBlockNumber() >= finalBlock);
-    require(saleFinalized);
-    _;
-  }
-
-  modifier non_zero_address(address x) {
-    require(x != 0);
-    _;
-  }
-
-  modifier minimum_value(uint256 x) {
-    require(msg.value >= x);
-    _;
   }
 }

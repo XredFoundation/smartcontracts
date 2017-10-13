@@ -7,9 +7,9 @@ var SaleWallet = artifacts.require("SaleWallet");
 module.exports = function(deployer, network, accounts) {
 
   const initialBlock = 30;
-  const finalBlock   = 150;
-  const initialPrice = 1.25;
-  const finalPrice   = 1;
+  const finalBlock   = 60;
+  const initialPrice = 305;
+  const finalPrice   = 280;
   const priceStages  = 5;
 
   const XREDMs        = '0x89d0a9ad9658b487f3a7948bea5443dbe858fb51'

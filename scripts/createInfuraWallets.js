@@ -20,10 +20,10 @@ var wallet = hdwallet.derivePath(wallet_hdpath + "0").getWallet();
 var address = "0x" + wallet.getAddress().toString("hex");
 
 var providerUrl = "https://kovan.infura.io";
-var ropstenProvider = new ProviderEngine();
-ropstenProvider.addProvider(new WalletSubprovider(wallet, {}));
-ropstenProvider.addProvider(new Web3Subprovider(new Web3.providers.HttpProvider(providerUrl)));
-ropstenProvider.start(); // Required by the provider engine.
+var kovanProvider = new ProviderEngine();
+kovanProvider.addProvider(new WalletSubprovider(wallet, {}));
+kovanProvider.addProvider(new Web3Subprovider(new Web3.providers.HttpProvider(providerUrl)));
+kovanProvider.start(); // Required by the provider engine.
 
 console.log(address);
 */

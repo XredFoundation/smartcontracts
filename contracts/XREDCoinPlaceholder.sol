@@ -1,6 +1,6 @@
 pragma solidity ^0.4.15;
 
-import "./interface/Controller.sol";
+import "./interface/TokenController.sol";
 import "./XREDCoin.sol";
 
 /**
@@ -18,7 +18,7 @@ import "./XREDCoin.sol";
         asks it to do so.
 */
 
-contract XREDCoinPlaceholder is Controller {
+contract XREDCoinPlaceholder is TokenController {
   address public sale;
   XREDCoin public token;
 
