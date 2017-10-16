@@ -6,14 +6,14 @@ var SaleWallet = artifacts.require("SaleWallet");
 
 module.exports = function(deployer, network, accounts) {
 
-  const initialBlock = 30;
-  const finalBlock   = 60;
-  const initialPrice = 305;
-  const finalPrice   = 280;
+  const initialBlock = 4336715;
+  const finalBlock   = 4394315;
+  const initialPrice = 396;
+  const finalPrice   = 330;
   const priceStages  = 5;
 
-  const XREDMs        = '0x89d0a9ad9658b487f3a7948bea5443dbe858fb51'
-  const communityMs   = '0x060dee6c0141830e2874ca216a362a3a90dcec3e';
+  const XREDMs        = '0x753dc527f5e20b1ad871be84f1a8afe915793d9a'
+  const communityMs   = '0xb775c9ddf0bddb636ac4b0e1698d09d25f0d3c03';
   const capCommitment = '0x7724218ab30f2cbc153d88e33f22e4d7e52309dd3cc597c83ad644f2efa8ff5a'; //Solidity sha3
 
   deployer.deploy(MiniMeTokenFactory);

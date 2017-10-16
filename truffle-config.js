@@ -3,8 +3,11 @@ require('babel-polyfill');
 
 var HDWalletProvider = require('truffle-hdwallet-provider');
 
-const mnemonic = process.env.TEST_MNETONIC || 'wallet wallet wallet wallet wallet wallet wallet wallet wallet wallet wallet wallet';// 'e0da2c91e59d50d6abec95f8518e8ccaf471c6ad3bac9efc0bf9b9a3ec65d260';
-const kovanProvider = new HDWalletProvider(mnemonic, 'https://kovan.infura.io');
+const mnemonic = process.env.TEST_MNEMONIC || 'wallet wallet wallet wallet wallet wallet wallet wallet wallet wallet wallet wallet';
+const apiKey = process.env.TEST_APIKEY || 000000000;
+const kovanProvider = new HDWalletProvider(mnemonic, 'https://kovan.infura.io/' + apiKey);
+
+//const mainProvider = new HDWalletProvider(mnemonic, 'https://mainnet.infura.io/' + apiKey);
 
 module.exports = {
   networks: {
@@ -31,6 +34,7 @@ module.exports = {
     mainnet: {
       network_id: 1,
       from: '0x572EC0D3b3c3c1DE50340F6F811C1F6408Dc3195',
+      //provider: mainProvider,
       host: 'localhost',
       port: 8545,
       gas: 4999999,
@@ -38,8 +42,7 @@ module.exports = {
     kovan: {
       network_id: 42,
       provider: kovanProvider,
-      gas: 4999999,
-      from: '0x572EC0D3b3c3c1DE50340F6F811C1F6408Dc3195',
+      gas: 4999999
     },
   },
   build: {}
