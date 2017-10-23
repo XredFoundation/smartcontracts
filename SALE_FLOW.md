@@ -82,7 +82,7 @@ After the sale has ended, it cannot be restarted. The sale can end in a stopped 
 
 The after sale period is considered from the final block (inclusive) until the sale contract is destroyed.
 
-#### 9. sale.finalizeSale() – 105 348 gas
+#### 9. sale.finalizeSale() – 164 393 gas
 
 This method will mint an additional 7/43 of tokens so at the end of the sale XRED Dev will own 14% of all the XREDCoin supply. 12% purchased by owners, 2% on bounty program.
 
@@ -90,24 +90,28 @@ In the process of doing so, it will make the XREDCoinPlaceholder the controller 
 
 #### 10. sale.deployNetwork() – 22 338 gas
 
-After the sale is finalized, the community multisig will be able to provide the address of the already deployed XRED Network.
+After the sale is finalized, the community multisig will be able to provide the address of new XRED controller.
 
 The XREDCoinPlaceholder will transfer its Token Controller power and it will be able to mint further tokens if the network governance decides so.
 
 ### Dividends
 
-#### 11. xredcoins.depositDividend() – 000 000 gas
+#### 11. xredcoins.enableTransfers() – 80 977 gas (in one direction)
+
+To prevent repeated claiming of dividends the transfer period of claiming will be suspended.
+After the period of claiming dividends has ended, the availability of token transferring will be enabled.
+
+#### 12. xredcoins.depositDividend() – 160 099 gas
 
 XRED Network controller can send amount ETH as dividends on account XREDCoin with an aim of distributing.
 
-#### 12. xredcoins.claimDividendAll() – 000 000 gas
+#### 13. xredcoins.claimDividendAll() – 136 956 gas
 
 Each token holder can claim a portion of dividends in accordance with an amount of holding.
 
 ### Token operations
 
-#### transfer – 000 000 gas
-#### grantVestedTokens – 000 000 gas
+#### transfer – 143 023 gas
 
 ### Example
 
